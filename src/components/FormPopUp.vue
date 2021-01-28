@@ -64,7 +64,6 @@
         </label>
         <div class="row kvkk">
           <input
-            v-model="user['kvkk']"
             class="kvkkCheck"
             type="checkbox"
             required>
