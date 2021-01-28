@@ -1,3 +1,6 @@
+
+Aşağıdaki linkten direkt olarak inceleyebilirsiniz.
+
 https://dgn-seven.vercel.app/
 
 
