@@ -52,6 +52,12 @@
               </option>
             </select>
           </div>
+          <small
+            v-if="
+              user[details.fieldName]!=undefined &&
+              user[details.fieldName]=='' &&
+              details.isRequired" class="error">Bu alan zorunludur.<br>
+          </small>
         </label>
         <div class="row kvkk">
           <input
@@ -183,6 +189,9 @@ export default {
       float: right;
       margin: 15px;
     }
+  }
+  .error{
+    color: red;
   }
   .kvkk {
     margin-bottom: 15px;
