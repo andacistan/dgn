@@ -13,7 +13,6 @@
             <br>
           <p class="p2">{{i}}</p>
           </div>
-          <p></p>
         </div>
       </div>
     </div>
