@@ -6,13 +6,13 @@
         <div></div><div></div><div></div><div></div></div>
     </div>
     <div class="details" v-show="!isLoading">
-      <form>
+      <form @submit.prevent="success(user)">
         <label v-for="(details, index) in companyDetails" :key="index">
           <span>{{details.fieldLabel}}</span>
           <div v-if="details.fieldType=='text'">
             <div class="phoneGroup" v-if="details.fieldDataType=='phone'">
               <div class="inputWrapper">
-                <select v-model="user['phoneCode']" name="" id="">
+                <select v-model="user['phoneCode']" name="" id="" required>
                   <option
                     v-for="(country,index) in countryList"
                     :key="index"
@@ -23,25 +23,28 @@
                 </select>
               </div>
               <div class="inputWrapper">
-                  <input v-model="user[details.fieldName]" type="tel">
+                  <input v-model="user[details.fieldName]" type="tel" :required="details.isRequired">
                 <i class="ico fas fa-phone"></i>
               </div>
             </div>
             <div v-else class="inputWrapper">
              <input v-model="user[details.fieldName]" :type = "details.fieldDataType=='email'?'email':'text'"
-                    :class="details.fieldDataType=='weddate' || details.fieldDataType=='date'?'dates':''">
+                    :class="details.fieldDataType=='weddate' || details.fieldDataType=='date'?'dates':''"
+                    :required="details.isRequired">
               <i :class="icon(details.fieldDataType)" class="ico"></i>
             </div>
           </div>
           <div class="inputWrapper" v-else-if="details.fieldType=='textarea'">
-            <textarea v-model="user[details.fieldName]"
+            <textarea
+              v-model="user[details.fieldName]"
+              :required="details.isRequired"
               name=""
               cols="30"
               rows="4">
             </textarea>
           </div>
           <div class="inputWrapper" v-else-if="details.fieldType=='select'">
-            <select v-model="user[details.fieldName]" name="">
+            <select v-model="user[details.fieldName]" name="" :required="details.isRequired">
               <option
                 v-for="(val,index) in details.infoRequestFormOptions"
                 :key="index"
@@ -70,7 +73,7 @@
             <span><a href="">pazarlama izni</a></span>metinlerini okudum ve kabul ediyorum.
           </p>
         </div>
-        <router-link tag="button" @click.native="changeUser(user)" to="thanks" class="buttons offer">Ücretsiz teklif al</router-link>
+        <button type="submit" class="buttons offer">Ücretsiz teklif al</button>
       </form>
     </div>
   </div>
@@ -130,6 +133,10 @@ export default {
         dateFormat: 'd-M-Y',
         locale: Turkish
       })
+    },
+    success (user) {
+      this.changeUser(user)
+      this.$router.push('/thanks')
     }
   }
 }
