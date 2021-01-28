@@ -28,7 +28,7 @@
               </div>
             </div>
             <div v-else class="inputWrapper">
-             <input v-model="user[details.fieldName]" :type = "details.fieldDataType=='weddate' || details.fieldDataType=='date'?'date':'text'"
+             <input v-model="user[details.fieldName]" :type = "details.fieldDataType=='email'?'email':'text'"
                     :class="details.fieldDataType=='weddate' || details.fieldDataType=='date'?'dates':''">
               <i :class="icon(details.fieldDataType)" class="ico"></i>
             </div>
@@ -104,10 +104,6 @@ export default {
   },
   components: {
     Header
-  },
-  beforeRouteLeave (to, from, next) {
-    console.log('calısti')
-    next(false)
   },
   methods: {
     ...mapMutations(['changeShowPopUp', 'changeUser']),
