@@ -9,8 +9,18 @@
       <form @submit.prevent="success(user)">
         <label v-for="(details, index) in companyDetails" :key="index">
           <span>{{details.fieldLabel}}</span>
-          <div v-if="details.fieldType=='text'">
-            <div class="phoneGroup" v-if="details.fieldDataType=='phone'">
+          <div class="inputWrapper" v-if="details.fieldType=='text' || details.fieldType =='date'">
+                <input v-model="user[details.fieldName]" :type = "details.fieldType"
+                       :class="details.fieldType=='date'?'dates':false"
+                       :required="details.isRequired">
+                <i :class="icon(details.fieldType)" class="ico"></i>
+          </div>
+          <div class="inputWrapper" v-else-if="details.fieldType=='email'">
+                <input v-model="user[details.fieldName]" :type = "details.fieldType"
+                       :required="details.isRequired">
+                <i :class="icon(details.fieldType)" class="ico"></i>
+          </div>
+          <div class="phoneGroup" v-else-if="details.fieldType=='phone'">
               <div class="inputWrapper">
                 <select v-model="user['phoneCode']" name="" id="" required>
                   <option
@@ -23,16 +33,9 @@
                 </select>
               </div>
               <div class="inputWrapper">
-                  <input v-model="user[details.fieldName]" type="tel" :required="details.isRequired">
+                <input v-model="user[details.fieldName]" type="number" :required="details.isRequired">
                 <i class="ico fas fa-phone"></i>
               </div>
-            </div>
-            <div v-else class="inputWrapper">
-             <input v-model="user[details.fieldName]" :type = "details.fieldDataType=='email'?'email':'text'"
-                    :class="details.fieldDataType=='weddate' || details.fieldDataType=='date'?'dates':''"
-                    :required="details.isRequired">
-              <i :class="icon(details.fieldDataType)" class="ico"></i>
-            </div>
           </div>
           <div class="inputWrapper" v-else-if="details.fieldType=='textarea'">
             <textarea
@@ -55,11 +58,7 @@
               </option>
             </select>
           </div>
-          <small
-            v-if="
-              user[details.fieldName]!=undefined &&
-              user[details.fieldName]=='' &&
-              details.isRequired" class="error">Bu alan zorunludur.<br>
+          <small v-if="user[details.fieldName]!=undefined && user[details.fieldName]=='' && details.isRequired" class="error">Bu alan zorunludur.<br>
           </small>
         </label>
         <div class="row kvkk">
@@ -116,9 +115,9 @@ export default {
   methods: {
     ...mapMutations(['changeShowPopUp', 'changeUser']),
     icon (dataType) {
-      if (dataType === 'name') {
+      if (dataType === 'text') {
         return 'fas fa-id-card'
-      } else if (dataType === 'date' || dataType === 'weddate') {
+      } else if (dataType === 'date') {
         return 'far fa-calendar-alt'
       } else if (dataType === 'email') {
         return 'far fa-envelope'
@@ -273,3 +272,38 @@ export default {
     }
   }
 </style>
+
+<!--
+
+<div v-if="details.fieldType=='text'">
+  <div class="inputWrapper">
+    <input v-model="user[details.fieldName]" :type = "details.fieldType"
+           :required="details.isRequired">
+    <i :class="icon(details.fieldType)" class="ico"></i>
+  </div>
+</div>
+<div v-if="details.fieldType='text'">
+  <div class="inputWrapper">
+    <input v-model="user[details.fieldName]" :type = "details.fieldType"
+           :required="details.isRequired">
+    <i :class="icon(details.fieldType)" class="ico"></i>
+  </div>
+</div>
+<div v-else-if="details.fieldType='phone'" class="phoneGroup">
+  <div class="inputWrapper">
+    <select v-model="user['phoneCode']" name="" id="" required>
+      <option
+        v-for="(country,index) in countryList"
+        :key="index"
+        :selected="country.code=='TR'"
+        :value="country.dial_code">
+        {{country.code}}
+      </option>
+    </select>
+  </div>
+  <div class="inputWrapper">
+    <input v-model="user[details.fieldName]" type="number" :required="details.isRequired">
+    <i class="ico fas fa-phone"></i>
+  </div>
+</div>
+<div v-else-if="details.fieldType = 'date'"></div>-->
