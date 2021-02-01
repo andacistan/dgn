@@ -2,9 +2,14 @@
   <div>
     <select
       :name="details.fieldName"
-      :required="details.isRequired"
+      required
       @input="addUser({val:$event.target.value,name:details.fieldName})">
-      <option v-for="(item, index) in details.infoRequestFormOptions" :key="index">{{item.optionText}}</option>
+      <option
+        v-for="(item, index) in details.infoRequestFormOptions"
+        :key="index"
+        :disabled="item.optionValue==0"
+        :selected="item.optionValue==0">{{item.optionText}}
+      </option>
     </select>
   </div>
 </template>

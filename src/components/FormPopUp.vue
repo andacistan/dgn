@@ -14,7 +14,7 @@
             :is="changeType(details.fieldType)"
             :details="details">
           </component>
-          <small v-if="user[details.fieldName]!=undefined && user[details.fieldName]=='' && details.isRequired" class="error">Bu alan zorunludur.<br>
+          <small v-if="getUser[details.fieldName]!=undefined && getUser[details.fieldName]=='' && details.isRequired" class="error">Bu alan zorunludur.<br>
           </small>
         </label>
         <div class="row kvkk">
@@ -33,7 +33,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import Header from './Header'
 import axios from 'axios'
 import { Turkish } from 'flatpickr/dist/l10n/tr.js'
@@ -69,6 +69,9 @@ export default {
     Input,
     Select,
     TextArea
+  },
+  computed: {
+    ...mapGetters(['getUser'])
   },
   methods: {
     ...mapMutations(['changeShowPopUp']),
@@ -231,54 +234,3 @@ export default {
     }
   }
 </style>
-
-<!--
-<div class="inputWrapper" v-if="details.fieldType=='text' || details.fieldType =='date'">
-                <input v-model="user[details.fieldName]" :type = "details.fieldType"
-                       :class="details.fieldType=='date'?'dates':false"
-                       :required="details.isRequired">
-                <i :class="icon(details.fieldType)" class="ico"></i>
-          </div>
-          <div class="inputWrapper" v-else-if="details.fieldType=='email'">
-                <input v-model="user[details.fieldName]" :type = "details.fieldType"
-                       :required="details.isRequired">
-                <i :class="icon(details.fieldType)" class="ico"></i>
-          </div>
-          <div class="phoneGroup" v-else-if="details.fieldType=='phone'">
-              <div class="inputWrapper">
-                <select v-model="user['phoneCode']" name="" id="" required>
-                  <option
-                    v-for="(country,index) in countryList"
-                    :key="index"
-                    :selected="country.code=='TR'"
-                    :value="country.dial_code">
-                    {{country.code}}
-                  </option>
-                </select>
-              </div>
-              <div class="inputWrapper">
-                <input v-model="user[details.fieldName]" type="number" :required="details.isRequired">
-                <i class="ico fas fa-phone"></i>
-              </div>
-          </div>
-          <div class="inputWrapper" v-else-if="details.fieldType=='textarea'">
-            <textarea
-              v-model="user[details.fieldName]"
-              :required="details.isRequired"
-              name=""
-              cols="30"
-              rows="4">
-            </textarea>
-          </div>
-          <div class="inputWrapper" v-else-if="details.fieldType=='select'">
-            <select v-model="user[details.fieldName]" name="" :required="details.isRequired">
-              <option
-                v-for="(val,index) in details.infoRequestFormOptions"
-                :key="index"
-                :disabled="val.optionValue==0"
-                :selected="val.optionValue==0"
-                :value="val.optionText">
-                {{val.optionText}}
-              </option>
-            </select>
-          </div>>-->
