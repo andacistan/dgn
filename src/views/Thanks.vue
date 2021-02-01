@@ -9,10 +9,8 @@
          {{getCompanyName}} sana en kısa sürede dönüş yapacak.
         </p>
         <div v-for=" (data,index) in getUser" :key="index">
-          <div  v-for=" (i,index) in data" :key="index">
             <br>
-          <p class="p2">{{i}}</p>
-          </div>
+          <p class="p2">{{data}}</p>
         </div>
       </div>
     </div>

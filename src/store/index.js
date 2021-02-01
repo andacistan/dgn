@@ -8,7 +8,7 @@ export default new Vuex.Store({
     showPopUp: false,
     companyId: '',
     companyName: '',
-    user: []
+    user: {}
   },
   getters: {
     getShowPopUp (state) {
@@ -24,15 +24,15 @@ export default new Vuex.Store({
   mutations: {
     changeShowPopUp (state) {
       state.showPopUp = !state.showPopUp
-      state.user = []
+      state.user = {}
     },
     changeCompanyDetails (state, value) {
       state.showPopUp = !state.showPopUp
       state.companyId = value.id
       state.companyName = value.name
     },
-    changeUser (state, value) {
-      state.user.push(value)
+    addUser (state, value) {
+      Vue.set(state.user, value.name, value.val)
     }
   },
   actions: {
