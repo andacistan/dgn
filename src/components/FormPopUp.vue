@@ -80,15 +80,6 @@ export default {
       else if (fieldType === 'select') return 'Select'
       else return 'TextArea'
     },
-    icon (dataType) {
-      if (dataType === 'text') {
-        return 'fas fa-id-card'
-      } else if (dataType === 'date') {
-        return 'far fa-calendar-alt'
-      } else if (dataType === 'email') {
-        return 'far fa-envelope'
-      }
-    },
     calendar () {
       flatpickr('.dates', {
         minDate: 'today',
